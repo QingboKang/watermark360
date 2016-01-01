@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+            
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent" 
+              android:background="@drawable/background">
+
+        <TableLayout
+                android:layout_marginTop="90dp"
+                android:layout_marginLeft="90dp"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0, 1" >
+          
+         <TableRow>
+            <ImageView
+                    android:onClick="cameraOnClick"
+                    android:background="@drawable/bg_main_btn"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+  
+            <ImageView
+                android:onClick="cameraOnClick2" 
+                android:background="@drawable/bg_main_btn2" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" />
+         </TableRow>
+ 
+         <TableRow>
+            <ImageView
+                    android:onClick="contactUs"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/bg_main_btn3"
+                    android:layout_height="wrap_content"/>
+             <ImageView
+                    android:onClick="aboutUs"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/bg_main_btn4"
+                    android:layout_height="wrap_content"/>
+         </TableRow>
+       </TableLayout>
+
+
+</RelativeLayout>
