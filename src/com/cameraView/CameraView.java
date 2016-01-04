@@ -51,7 +51,7 @@ public class CameraView extends SurfaceView implements Callback {
 	private Timer mTimer;
 	private TimerTask mTimerTask;
 	
-	private String LOG_TAG = "CameraView";
+//	private String LOG_TAG = "CameraView";
 	
 	// 路径 文件名 jni使用
 	public static String strCaptureFilePath = "/storage/emulated/0/YFWatermark/";
@@ -72,8 +72,8 @@ public class CameraView extends SurfaceView implements Callback {
 			// TODO Auto-generated method stub
 			try {
 				Bitmap bm = BitmapFactory.decodeByteArray(data, 0, data.length);
-				Log.i("length", "" + data.length);
-				Log.i("data[0]", "" + data[0]);
+			//	Log.i("length", "" + data.length);
+			//	Log.i("data[0]", "" + data[0]);
 				File file = new File("/sdcard/wjh.jpg");
 				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
 				bm.compress(Bitmap.CompressFormat.JPEG, 100, bos); // 保存图片
@@ -110,14 +110,14 @@ public class CameraView extends SurfaceView implements Callback {
 						"frame_" + count_frame + imageWidth + "_" + imageHeight + ".bin");
 				
                 end1 = System.currentTimeMillis();
-                Log.i( LOG_TAG, "time: " + (end1 - start) + " ms"); 
+              //  Log.i( LOG_TAG, "time: " + (end1 - start) + " ms"); 
 			    
 				Bitmap bm = Bitmap.createBitmap(RGBData, imageWidth, imageHeight, Config.ARGB_8888);
 			
 				count_frame ++ ;
 				
                 end2 = System.currentTimeMillis();
-                Log.i( LOG_TAG, "total time: " + (end2 - start) + " ms"); 
+              //  Log.i( LOG_TAG, "total time: " + (end2 - start) + " ms"); 
 			    
 				// 
 				//Bitmap bm_result = getBitmapFromC(bm);
@@ -299,7 +299,8 @@ public class CameraView extends SurfaceView implements Callback {
 			// 设置参数
 			Camera.Parameters parameters = mCamera.getParameters();
 			List<Size> mSupportedPreviewSizes = parameters.getSupportedPreviewSizes();
-			Size mysize = getOptimalPreviewSize(mSupportedPreviewSizes, VideoActivity.iScreenWidth, VideoActivity.iScreenHeight);
+			Size mysize = getOptimalPreviewSize(mSupportedPreviewSizes, 
+					VideoActivity.iScreenWidth / 2, VideoActivity.iScreenHeight / 2);
 	        parameters.setPreviewSize(mysize.width, mysize.height);
 	        mCamera.setParameters(parameters);
 			
@@ -328,24 +329,39 @@ public class CameraView extends SurfaceView implements Callback {
 		
 	}
 	
-	 private Size getOptimalPreviewSize(List<Size> sizes, int w, int h) {
-	       
-	    	// 修改，选择一个最接近 (w, h)的预览大小
-	    	Size optimalSize = null;
-	        double minDiff = Integer.MAX_VALUE;
-	        for (Size size : sizes) 
-	        {
-	        	int diff = Math.abs( size.height - h ) + Math.abs(size.width - w);
-	        	
-	        	if( diff < minDiff )
-	        	{
-	        		minDiff = diff;
-	        		optimalSize = size;
-	        	}
-	        }
-	        return optimalSize;
-	 }
-	 
+    private Size getOptimalPreviewSize(List<Size> sizes, int w, int h) {
+        final double ASPECT_TOLERANCE = 0.1;
+        double targetRatio = (double) w / h;
+        if (sizes == null) return null;
+
+        Size optimalSize = null;
+        double minDiff = Double.MAX_VALUE;
+
+        int targetHeight = h;
+
+        // Try to find an size match aspect ratio and size
+        for (Size size : sizes) {
+            double ratio = (double) size.width / size.height;
+            if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE) continue;
+            if (Math.abs(size.height - targetHeight) < minDiff) {
+                optimalSize = size;
+                minDiff = Math.abs(size.height - targetHeight);
+            }
+        }
+
+        // Cannot find the one match the aspect ratio, ignore the requirement
+        if (optimalSize == null) {
+            minDiff = Double.MAX_VALUE;
+            for (Size size : sizes) {
+                if (Math.abs(size.height - targetHeight) < minDiff) {
+                    optimalSize = size;
+                    minDiff = Math.abs(size.height - targetHeight);
+                }
+            }
+        }
+        return optimalSize;
+    }
+    
 		public static int curDregree(int cameraId) {
 			 android.hardware.Camera.CameraInfo info =
 		             new android.hardware.Camera.CameraInfo();

@@ -62,9 +62,9 @@ public class VideoActivity extends Activity {
         iScreenWidth = display.getWidth();    
         iScreenHeight = display.getHeight();    
 		
-		Log.i(LOG_TAG, "before setContentView");
+	//	Log.i(LOG_TAG, "before setContentView");
 		setContentView(R.layout.activity_video);
-		Log.i(LOG_TAG, "after setContentView");
+	//	Log.i(LOG_TAG, "after setContentView");
 		
 		mCameraView = (CameraView) findViewById(R.id.mSurfaceView);
 		mCameraView.setHandle(mHandler);
@@ -84,11 +84,9 @@ public class VideoActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		
-		Log.i(LOG_TAG, "onStart()");
-	//	mCameraView.startCamera();
-		
-		Log.i(LOG_TAG, "after startCamera");
+
+
+
 	}
 	
 	

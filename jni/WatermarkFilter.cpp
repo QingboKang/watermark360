@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+// #include "include/libyuv.h"
 
 #include "ScrambledMarkFilter.h"
 
@@ -372,8 +373,8 @@ JNIEXPORT void JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_ShowPreview
 		JNIEnv* env, jobject obj, jint width, jint height, jbyteArray yuv, jintArray bgra,
 		jstring strDataFilePath )
 {
-    time_t t1, t2;
-	t1 = clock();
+  //  time_t t1, t2;
+//	t1 = clock();
 	    // Get native access to the given Java arrays.
 	    jbyte* _yuv  = env->GetByteArrayElements(yuv, 0);
 	    jint*  _bgra = env->GetIntArrayElements(bgra, 0);
@@ -432,8 +433,8 @@ JNIEXPORT void JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_ShowPreview
 	    env->ReleaseIntArrayElements(bgra, _bgra, 0);
 	    env->ReleaseByteArrayElements(yuv, _yuv, 0);
 
-	    t2 = clock();
-	    LOGD("%ld", (t2 - t1)/1000);
+	 //   t2 = clock();
+	 //   LOGD("%ld", (t2 - t1)/1000);
 }
 
 

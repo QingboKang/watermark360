@@ -6,6 +6,8 @@ public class LibWatermarkFilter {
 	{
 		System.loadLibrary("WatermarkFilter");
 	}
+	
+	
 
 	
 	public static native int PlainWMFilter( int width, int height, int[] inData, 

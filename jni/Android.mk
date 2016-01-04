@@ -1,5 +1,4 @@
-LOCAL_PATH := $(call my-dir)
-
+LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 include ../includeOpenCV.mk
@@ -16,10 +15,17 @@ include $(OPENCV_MK_PATH)
 
 endif
 
+
+
 LOCAL_MODULE    := WatermarkFilter
 LOCAL_LDLIBS    := -llog
+##LOCAL_STATIC_LIBRARIES := libyuv_static
  
 LOCAL_SRC_FILES := WatermarkFilter.cpp \
-ScrambledMarkFilter.cpp 
+ ScrambledMarkFilter.cpp 
+ 
+LOCAL_MODULE_TAGS := optional
  
 include $(BUILD_SHARED_LIBRARY)
+
+
