@@ -1,0 +1,20 @@
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+	<com.cameraView.CameraView2
+	    android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/mCameraView"
+        android:visibility="visible"
+    	/>
+	
+    <com.cameraView.SVDraw
+     android:id="@+id/svDraw"
+     android:layout_width="fill_parent" 
+     android:layout_height="fill_parent"
+     android:visibility="visible" />
+
+</FrameLayout  >
