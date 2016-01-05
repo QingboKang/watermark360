@@ -11,6 +11,7 @@ import java.util.TimerTask;
 
 import cc.yufei.watermark360.VideoActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -47,11 +48,12 @@ public class CameraView extends SurfaceView implements Callback {
 
 	private Handler mHandler;
 	
+	
 	// 时间线程 聚焦
 	private Timer mTimer;
 	private TimerTask mTimerTask;
 	
-//	private String LOG_TAG = "CameraView";
+	private String LOG_TAG = "CameraView";
 	
 	// 路径 文件名 jni使用
 	public static String strCaptureFilePath = "/storage/emulated/0/YFWatermark/";
@@ -94,7 +96,7 @@ public class CameraView extends SurfaceView implements Callback {
 				int imageWidth = mCamera.getParameters().getPreviewSize().width;
 				int imageHeight = mCamera.getParameters().getPreviewSize().height;
 				
-			//	Log.i( LOG_TAG, "w: " + imageWidth + " h: " + imageHeight);
+				Log.i( LOG_TAG, "w: " + imageWidth + " h: " + imageHeight);
 				long start, end1, end2;
 			    start = System.currentTimeMillis();
 				
@@ -232,6 +234,7 @@ public class CameraView extends SurfaceView implements Callback {
 		mSurfaceHolder.addCallback(this);
 		mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);// 设置类型
 		mContext = context;
+		
 	}
 
 	public CameraView(Context context, AttributeSet attrs) {
@@ -243,7 +246,6 @@ public class CameraView extends SurfaceView implements Callback {
 		mSurfaceHolder.addCallback(this);
 		mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);// 设置类型
 		mContext = context;
-
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -265,7 +267,8 @@ public class CameraView extends SurfaceView implements Callback {
 	
 		mCamera.setParameters(parameters);// 设置相机参数 */
 
-		mCamera.setDisplayOrientation( curDregree(cameraId));
+
+		mCamera.setDisplayOrientation( 90 );
 		
 		mCamera.startPreview();
 		mCamera.autoFocus(autoFocus); 
@@ -300,7 +303,7 @@ public class CameraView extends SurfaceView implements Callback {
 			Camera.Parameters parameters = mCamera.getParameters();
 			List<Size> mSupportedPreviewSizes = parameters.getSupportedPreviewSizes();
 			Size mysize = getOptimalPreviewSize(mSupportedPreviewSizes, 
-					VideoActivity.iScreenWidth / 2, VideoActivity.iScreenHeight / 2);
+					SplashActivity.iScreenWidth / 2, SplashActivity.iScreenHeight / 2);
 	        parameters.setPreviewSize(mysize.width, mysize.height);
 	        mCamera.setParameters(parameters);
 			
@@ -362,7 +365,7 @@ public class CameraView extends SurfaceView implements Callback {
         return optimalSize;
     }
     
-		public static int curDregree(int cameraId) {
+		public int curDregree(int cameraId) {
 			 android.hardware.Camera.CameraInfo info =
 		             new android.hardware.Camera.CameraInfo();
 		     android.hardware.Camera.getCameraInfo(cameraId, info);

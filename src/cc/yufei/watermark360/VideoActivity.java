@@ -13,7 +13,7 @@ import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.Toast;
+
 
 
 public class VideoActivity extends Activity {
@@ -30,6 +30,7 @@ public class VideoActivity extends Activity {
 	public static int iScreenHeight;
 	
 	public static Activity activity = null;
+
 	public Matrix matrix = new Matrix();
 	
 	private Handler mHandler = new Handler() {

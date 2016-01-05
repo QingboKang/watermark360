@@ -18,23 +18,17 @@ using namespace std;
 
 extern "C" {
 
-int ScrambledWMFilter( Mat &matBGRA, int height, int width, Mat &templateImage,
+int ScrambledWMFilter( Mat &matBGRA, int height, int width,
                       char* strOriginalFrame, char* strFirstLocation,
                       char* strSecondLocation, char* strWatermarkRegion,
                       char* strFinalExtracion);
 
 int FirstLocation(Mat & srcImageFull, char* strFirstLocation);
 
-
 int IsCentersCoincide( Point ptDetection, int iRadius, int iMinSide );
-
-int AddAlphaWeighted(Mat & src1, Mat & src2, float alpha, float beta, float gamma);
 
 int LocAndExtract( Mat & srcImage, char* strSecondLocation, char* strWatermarkRegion,
                    char* strFinalExtracion );
-
-void ExtractWatermark( Mat &correctedImage, char* strWatermarkRegion,
-                       char* strFinalExtracion );
 
 int ScrambleImage( Mat & image, char* strWatermarkRegion,
                    char* strFinalExtracion );

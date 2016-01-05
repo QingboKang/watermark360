@@ -293,9 +293,10 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermarkmultifilter_LibWatermarkFilter_Scr
 
 
 
-	int iret = ScrambledWMFilter( matBGRA, height, width, matTemplate,
+	int iret = 0;
+			/* = ScrambledWMFilter( matBGRA, height, width, matTemplate,
 			pchOriginalFrame, pchFirstLocation, pchSecondLocation,
-			pchWatermarkRegion, pchFinalExtracion );
+			pchWatermarkRegion, pchFinalExtracion ); */
 
 	if( iret == 0 )
 	{
@@ -365,6 +366,48 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_PlainWMFilt
 
 	return 0;
   }
+
+JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtract(
+		JNIEnv* env, jobject obj, jint width, jint height, jbyteArray yuv, jintArray bgra,
+		jstring strOriginalFrame, jstring strFirstLocation, jstring strSecondLocation,
+		jstring strWatermarkRegion, jstring strFinalExtracion );
+
+JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtract(
+		JNIEnv* env, jobject obj, jint width, jint height, jbyteArray yuv, jintArray bgra,
+		jstring strOriginalFrame, jstring strFirstLocation, jstring strSecondLocation,
+		jstring strWatermarkRegion, jstring strFinalExtracion )
+{
+	// convert jstring into char*
+	char * pchOriginalFrame = jstringTostring(env, strOriginalFrame);
+	char * pchFirstLocation = jstringTostring(env, strFirstLocation);
+	char * pchSecondLocation = jstringTostring(env, strSecondLocation);
+	char * pchWatermarkRegion = jstringTostring(env, strWatermarkRegion);
+	char * pchFinalExtracion = jstringTostring(env, strFinalExtracion);
+
+    // Get native access to the given Java arrays.
+    jbyte* _yuv  = env->GetByteArrayElements(yuv, 0);
+    jint*  _bgra = env->GetIntArrayElements(bgra, 0);
+
+    // convert yuv420sp buffer to bgra buffer
+    YUV420SP_C_BGRA( (char*) _yuv, (uchar*)_bgra, height, width );
+
+    // Prepare a cv::Mat that points to the BGRA output data.
+    Mat matBGRA(height, width, CV_8UC4, (uchar *)_bgra);
+
+    //
+   // imwrite( pchOriginalFrame, matBGRA );
+
+	int iret = ScrambledWMFilter( matBGRA, height, width,
+			pchOriginalFrame, pchFirstLocation, pchSecondLocation,
+			pchWatermarkRegion, pchFinalExtracion );
+
+
+    // Release the native lock we placed on the Java arrays.
+    env->ReleaseIntArrayElements(bgra, _bgra, 0);
+    env->ReleaseByteArrayElements(yuv, _yuv, 0);
+
+    return iret;
+}
 
 JNIEXPORT void JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_ShowPreview(
 		JNIEnv* env, jobject obj, jint width, jint height, jbyteArray yuv, jintArray bgra,

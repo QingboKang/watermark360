@@ -39,23 +39,27 @@
         </activity>
         <activity
             android:name=".ContactActivity"
+            android:exported="false"
             android:label="@string/title_activity_contact"
-            android:screenOrientation="portrait" 
-            android:exported="false">
-            
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".AboutActivity"
+            android:exported="false"
             android:label="@string/title_activity_about"
-            android:screenOrientation="portrait"
-            android:exported="false"  >
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".VideoActivity"
+            android:exported="false"
             android:label="@string/title_activity_video"
-            
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" 
-            android:exported="false" >
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".ExtractActivity"
+            android:label="@string/title_activity_extract"
+            android:exported="false"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
         </activity>
     </application>
 

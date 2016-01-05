@@ -3,16 +3,32 @@ package cc.yufei.watermark360;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class SplashActivity extends Activity {
 
+	// screen width/height
+	public static int iScreenWidth;
+	public static int iScreenHeight;
+	
+	public static Activity activity = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
+		
+	     // 方法1 Android获得屏幕的宽和高    
+        WindowManager windowManager = getWindowManager();    
+        Display display = windowManager.getDefaultDisplay();    
+        iScreenWidth = display.getWidth();    
+        iScreenHeight = display.getHeight();   
+        
+        activity = this;
 	}
 	// first type watermark extraction
 	public void cameraOnClick(View view)
@@ -23,7 +39,7 @@ public class SplashActivity extends Activity {
 	// second type watermark extraction
 	public void cameraOnClick2(View view)
 	{
-		
+		startActivity(new Intent(SplashActivity.this, ExtractActivity.class));
 	}
 	
 	// contact us

@@ -18,6 +18,11 @@ public class LibWatermarkFilter {
 			String strOriginalFrame, String strFirstLocation, String strSecondLocation,
 			String strWatermarkRegion, String strFinalExtracion );
 	
-	public static native int ShowPreview(int width, int height, byte[] yuv, int[] rgba, String strDataFilePath);
+	public static native int ShowPreview( int width, int height, byte[] yuv, int[] rgba, 
+			String strDataFilePath );
+	
+	public static native int SecondExtract( int width, int height, byte[] yuv, int[] rgba, 
+			String strOriginalFrame, String strFirstLocation, String strSecondLocation,
+			String strWatermarkRegion, String strFinalExtracion  );
 
 }

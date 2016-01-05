@@ -6,16 +6,6 @@ extern "C" {
 //////////////////////////////////////////////////////////////////////////
 
 ////////// global variables //////////
-// flag to mark if read the template image
-// we will only read the image once because of the factor of performance
-bool g_bIsReadTemplateImage = false;
-// template image mat
-Mat g_TemplateMat;
-// the frame image size. 
-// we will only resize the template image once if the size is not changed
-Size g_szPrior;
-// resized template image
-Mat g_ResizedTemplateMat;
 
 // the resized center point of the two concentric circles
 Point g_ptResizedCenter = Point(-1, -1);
@@ -351,36 +341,6 @@ int AddAlphaWeighted(Mat & src1, Mat & src2, float alpha, float beta, float gamm
 }
 
 
-void ExtractWatermark( Mat &correctedImage, char* strWatermarkRegion,
-                       char* strFinalExtracion )
-{
-    // the original watermark region
-    Point2i ptStartOrig = Point2f( 417, 1148);
-    Point2i ptEndOrig = Point2f( 1510, 1448);
-
-    int iTemplateOrigWidth = g_TemplateMat.cols;
-    int iTemplateOrigHeight = g_TemplateMat.rows;
-
-    // the resized watermark region
-    Point2i ptStartReal = Point2i( ptStartOrig.x * ((float)iMinSide / iTemplateOrigWidth),
-                ptStartOrig.y * ((float)iMinSide / iTemplateOrigHeight) );
-    Point2i ptEndReal = Point2i( ptEndOrig.x * ((float)iMinSide / iTemplateOrigWidth),
-                ptEndOrig.y * ((float)iMinSide / iTemplateOrigHeight) );
-
-    Rect rectWatermark = Rect(ptStartReal, ptEndReal);
-    Mat matWatermark = correctedImage(rectWatermark);
-
-    // extract watermark
-    ScrambleImage(matWatermark, strWatermarkRegion, strFinalExtracion);
-
-    // draw red rectangle on the image
-    rectangle( correctedImage, rectWatermark, Scalar(0, 0, 255 ), 3, 8, 0 );
-
-    // imshow("correctedImage", correctedImage);
-    // imshow("matWatermark", matWatermark);
-
-
-}
 
 int LocAndExtract( Mat & srcImage, char* strSecondLocation, char* strWatermarkRegion,
                   char* strFinalExtracion )
@@ -470,40 +430,13 @@ int LocAndExtract( Mat & srcImage, char* strSecondLocation, char* strWatermarkRe
 }
 
 
-int ScrambledWMFilter( Mat &matBGRA, int height, int width, Mat &templateImage,
+int ScrambledWMFilter( Mat &matBGRA, int height, int width,
                       char* strOriginalFrame, char* strFirstLocation,
                       char* strSecondLocation, char* strWatermarkRegion,
                       char* strFinalExtracion)
 {
     // get the minimum length of side
     iMinSide = height > width ? width : height;
-
-    // read template image 
-    if( g_bIsReadTemplateImage == false )
-    {
-        // read in the template image
-        g_TemplateMat = templateImage;
-        g_bIsReadTemplateImage = true;
-
-    }
-    // initialize the size
-    if(g_szPrior.width == 0 && g_szPrior.height == 0)
-    {
-        g_szPrior = Size(iMinSide, iMinSide);
-
-        // resize the template image
-        g_ResizedTemplateMat = Mat(iMinSide, iMinSide, g_TemplateMat.type());
-        resize( g_TemplateMat, g_ResizedTemplateMat, Size(iMinSide, iMinSide), 0, 0, INTER_NEAREST );
-    }
-    // the size has been changed
-    else if(g_szPrior.width != iMinSide || g_szPrior.height != iMinSide)
-    {
-        g_szPrior = Size(iMinSide, iMinSide);
-
-        // resize the template image
-        g_ResizedTemplateMat = Mat(iMinSide, iMinSide, g_TemplateMat.type());
-        resize( g_TemplateMat, g_ResizedTemplateMat, Size(iMinSide, iMinSide), 0, 0, INTER_NEAREST );
-    }
 
     // roi of the source image
     Rect roi_rect;
@@ -522,7 +455,7 @@ int ScrambledWMFilter( Mat &matBGRA, int height, int width, Mat &templateImage,
     // if return 0, means location success
     int iret = FirstLocation(matBGRA, strFirstLocation);
 
-  //  LOGD("iret: %d\n", iret);
+    LOGD("iret: %d\n", iret);
 
     // get the roi part of the image
     Mat roiMat;
@@ -531,7 +464,7 @@ int ScrambledWMFilter( Mat &matBGRA, int height, int width, Mat &templateImage,
     // first location success
     if(iret == 0)
     {
-       // printf("first location success. \t%d\n", iFirstLocSuccess);
+        LOGD("first locatio success. \t%d\n", iFirstLocSuccess);
         iFirstLocSuccess ++;
 
         // second location and extract watermark image
@@ -539,22 +472,22 @@ int ScrambledWMFilter( Mat &matBGRA, int height, int width, Mat &templateImage,
             strWatermarkRegion, strFinalExtracion );
         if(iSecondRet == 0)
         {
-           // printf("\nSecond location success.\n");
+            LOGD("\nSecond location success.\n");
             return 0;
         }
         else
         {
-        //    printf("\nSecond location failed.\n");
+            LOGD("\nSecond location failed.\n");
             return -1;
         }
     }
     // go on acquiring frame images to location
     else
     {
-        AddAlphaWeighted(roiMat, g_ResizedTemplateMat, 0.2, 0.8, 0.0);
         return -2;
     }
 }
+
 
 
 }
