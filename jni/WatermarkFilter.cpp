@@ -409,10 +409,10 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtra
     return iret;
 }
 
-JNIEXPORT void JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_ShowPreview(
+JNIEXPORT void JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_FirstExtract(
 		JNIEnv* env, jobject obj, jint width, jint height, jbyteArray yuv, jintArray bgra,
 		jstring strDataFilePath );
-JNIEXPORT void JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_ShowPreview(
+JNIEXPORT void JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_FirstExtract(
 		JNIEnv* env, jobject obj, jint width, jint height, jbyteArray yuv, jintArray bgra,
 		jstring strDataFilePath )
 {

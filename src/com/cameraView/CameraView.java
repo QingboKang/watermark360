@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cc.yufei.watermark360.SplashActivity;
 import cc.yufei.watermark360.VideoActivity;
 
 import android.app.Activity;
@@ -96,7 +97,7 @@ public class CameraView extends SurfaceView implements Callback {
 				int imageWidth = mCamera.getParameters().getPreviewSize().width;
 				int imageHeight = mCamera.getParameters().getPreviewSize().height;
 				
-				Log.i( LOG_TAG, "w: " + imageWidth + " h: " + imageHeight);
+			//	Log.i( LOG_TAG, "w: " + imageWidth + " h: " + imageHeight);
 				long start, end1, end2;
 			    start = System.currentTimeMillis();
 				
@@ -107,7 +108,7 @@ public class CameraView extends SurfaceView implements Callback {
 				
 				
 			//	Log.i(LOG_TAG, "before jni decode");
-				LibWatermarkFilter.ShowPreview(imageWidth, imageHeight, data, RGBData, 
+				LibWatermarkFilter.FirstExtract(imageWidth, imageHeight, data, RGBData, 
 						strCaptureFilePath + 
 						"frame_" + count_frame + imageWidth + "_" + imageHeight + ".bin");
 				
@@ -302,8 +303,11 @@ public class CameraView extends SurfaceView implements Callback {
 			// 设置参数
 			Camera.Parameters parameters = mCamera.getParameters();
 			List<Size> mSupportedPreviewSizes = parameters.getSupportedPreviewSizes();
+		
+			// 这里屏幕的宽度 高度需要反着来 
 			Size mysize = getOptimalPreviewSize(mSupportedPreviewSizes, 
-					SplashActivity.iScreenWidth / 2, SplashActivity.iScreenHeight / 2);
+					SplashActivity.iScreenHeight, SplashActivity.iScreenWidth);
+			
 	        parameters.setPreviewSize(mysize.width, mysize.height);
 	        mCamera.setParameters(parameters);
 			

@@ -9,5 +9,6 @@
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_video">VideoActivity</string>
     <string name="title_activity_extract">ExtractActivity</string>
+    <string name="title_activity_result">ResultActivity</string>
 
 </resources>

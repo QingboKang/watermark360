@@ -1,8 +1,11 @@
 package cc.yufei.watermark360;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +20,11 @@ public class SplashActivity extends Activity {
 	
 	public static Activity activity = null;
 	
+	// 电源管理
+	PowerManager.WakeLock mWakeLock;
+	
+	private static String LOG_TAG = "SplashActivity";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,7 +37,51 @@ public class SplashActivity extends Activity {
         iScreenHeight = display.getHeight();   
         
         activity = this;
+        
+        // 电源管理
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        
+        mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "WM_360");
+        mWakeLock.acquire();
 	}
+	
+	public void onDestroy()
+	{
+		super.onDestroy();
+		
+		if( mWakeLock == null )
+		{
+			Log.i(LOG_TAG, "mWakeLock is null");
+		}
+		if( mWakeLock != null )
+		{
+			Log.i(LOG_TAG, "mWakeLock is not null");
+			mWakeLock.release();
+		}
+	}
+	
+	public void onPause()
+	{
+		super.onPause();
+		if( mWakeLock != null )
+		{
+			mWakeLock.release();
+			mWakeLock = null;
+		}
+	}
+	
+	public void onResume()
+	{
+		super.onResume();
+		if( mWakeLock == null )
+		{
+	        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+	        
+	        mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "WM_360");
+	        mWakeLock.acquire();
+		}
+	}
+	
 	// first type watermark extraction
 	public void cameraOnClick(View view)
 	{
@@ -39,8 +91,27 @@ public class SplashActivity extends Activity {
 	// second type watermark extraction
 	public void cameraOnClick2(View view)
 	{
-		startActivity(new Intent(SplashActivity.this, ExtractActivity.class));
+		Intent intent = new Intent();
+		intent.setClass(SplashActivity.this, ExtractActivity.class );
+		
+		startActivityForResult( intent, 1 );
 	}
+	
+    @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+    	super.onActivityResult(requestCode, resultCode, data);
+		
+		switch(requestCode)
+		{
+		case 1:
+			if( ExtractActivity.mFinalExtractBitmap != null )
+			{
+				Log.i( "extract_result", "onActivityResult");
+				startActivity(new Intent(SplashActivity.this, ResultActivity.class));
+			}
+		}
+    }
 	
 	// contact us
 	public void contactUs(View view)

@@ -2,7 +2,7 @@ package com.cameraView;
 
 import cc.yufei.watermark360.R;
 import android.content.Context;
-import android.content.res.Resources;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,7 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
+
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -30,7 +30,7 @@ public class SVDraw extends SurfaceView  implements SurfaceHolder.Callback{
 		
 		super(context);
 		
-		Log.i(LOG_TAG, "SVDraw(Context context)");
+	//	Log.i(LOG_TAG, "SVDraw(Context context)");
 		// TODO Auto-generated constructor stub
 		sh = getHolder();
 		sh.addCallback(this);
@@ -44,7 +44,7 @@ public class SVDraw extends SurfaceView  implements SurfaceHolder.Callback{
 	public SVDraw(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
-		Log.i(LOG_TAG, "SVDraw(Context context, AttributeSet attrs) ");
+		//Log.i(LOG_TAG, "SVDraw(Context context, AttributeSet attrs) ");
 		
 		// TODO Auto-generated constructor stub
 		sh = getHolder();
@@ -59,20 +59,21 @@ public class SVDraw extends SurfaceView  implements SurfaceHolder.Callback{
 		width = w;
 		height = h;
 		
-		Log.i(LOG_TAG, "surfaceChanged");
+	//	Log.i(LOG_TAG, "surfaceChanged");
 	}
 
 	@Override
 	public void surfaceCreated(SurfaceHolder arg0) {
 		// TODO Auto-generated method stub
 		
-		Log.i(LOG_TAG, "surfaceCreated");
+	//	Log.i(LOG_TAG, "surfaceCreated");
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder arg0) {
 		// TODO Auto-generated method stub
-		Log.i(LOG_TAG, "surfaceDestroyed");
+	//	Log.i(LOG_TAG, "surfaceDestroyed");\
+		sh.removeCallback(this);
 	}
 
 	void clearDraw() {
@@ -97,7 +98,7 @@ public class SVDraw extends SurfaceView  implements SurfaceHolder.Callback{
 			int cheight = canvas.getHeight();
 			
 			
-		Log.i(LOG_TAG, "cwidth: " + cwidth + "  cheight: " + cheight);
+		//Log.i(LOG_TAG, "cwidth: " + cwidth + "  cheight: " + cheight);
 			
 			
 			canvas.drawColor(Color.TRANSPARENT);// 这里是绘制背景

@@ -63,6 +63,7 @@ public class CameraView2 extends SurfaceView implements Callback {
 	private TimerTask mTimerTask;
 	
 	private String LOG_TAG = "CameraView2";
+	private String LOG_TAG_RATIO = "CameraRatio";
 	
 	// 路径 文件名 jni使用
 	public static String strCaptureFilePath = "/storage/emulated/0/YFWatermark/";
@@ -107,11 +108,16 @@ public class CameraView2 extends SurfaceView implements Callback {
 				// draw the template image
 				ExtractActivity.svDraw.doDraw();
 				
+				if( ExtractActivity.mFinalExtractBitmap != null )
+				{
+					return;
+				}
+				
 				// frame image width height
 				int imageWidth = mCamera.getParameters().getPreviewSize().width;
 				int imageHeight = mCamera.getParameters().getPreviewSize().height;
 				
-			//	Log.i( LOG_TAG, "w: " + imageWidth + " h: " + imageHeight);
+				Log.i( LOG_TAG, "w: " + imageWidth + " h: " + imageHeight);
 				long start, end1, end2;
 			    start = System.currentTimeMillis();
 				
@@ -134,14 +140,14 @@ public class CameraView2 extends SurfaceView implements Callback {
 						strSecondLocation, strWatermarkRegion, strFinalExtracion);
 			
                 end1 = System.currentTimeMillis();
-                Log.i( LOG_TAG, "iret: " + iret + " time: " + (end1 - start) + " ms"); 
+                Log.i( LOG_TAG, count_frame + " iret: " + iret + " time: " + (end1 - start) + " ms"); 
 			   
-			
 				count_frame ++ ;
 				
                 end2 = System.currentTimeMillis();
               //  Log.i( LOG_TAG, "total time: " + (end2 - start) + " ms"); 
 				
+           
                 // 提取成功
                 if( iret == 0 )
                 {
@@ -151,8 +157,9 @@ public class CameraView2 extends SurfaceView implements Callback {
                 	message.what = 1033;
                 	message.obj = bm;
                 	mHandler.sendMessage(message);  
+                	Log.i( "extract_result", "send message");
+                
                 }
-			 
 			
 			}
 		}
@@ -166,26 +173,7 @@ public class CameraView2 extends SurfaceView implements Callback {
 		}
 	};
 	
-	private Bitmap getBitmapFromC(Bitmap bmp_src)
-	{
-    	// Get the width/height of the image
-        int i_bmp_width = bmp_src.getWidth();
-        int i_bmp_height = bmp_src.getHeight();
-        
-        // get the image data
-        int[] pixels = new int[i_bmp_width * i_bmp_height];
-        bmp_src.getPixels(pixels, 0, i_bmp_width, 0, 0, i_bmp_width, i_bmp_height);
-        
-    	LibWatermarkFilter.PlainWMFilter(i_bmp_width,
-    			i_bmp_height, pixels, strCaptureFilePath + "camera_bgra.png"); 
-    	
-        // result bitmap
-        Bitmap bmp_result = Bitmap.createBitmap(i_bmp_width, i_bmp_height, Bitmap.Config.ARGB_8888);
-        
-        bmp_result.setPixels(pixels, 0, i_bmp_width, 0, 0, i_bmp_width, i_bmp_height); 
-        
-        return bmp_result;
-	}
+
 
 
 	/**
@@ -199,6 +187,7 @@ public class CameraView2 extends SurfaceView implements Callback {
 	static public void decodeYUV420SP(int[] rgb, byte[] yuv420sp, int width, int height) {
 		final int frameSize = width * height;
 
+	    
 		for (int j = 0, yp = 0; j < height; j++) {
 			int uvp = frameSize + (j >> 1) * width, u = 0, v = 0;
 			for (int i = 0; i < width; i++, yp++) {
@@ -349,8 +338,9 @@ public class CameraView2 extends SurfaceView implements Callback {
 			// 设置参数
 			Camera.Parameters parameters = mCamera.getParameters();
 			List<Size> mSupportedPreviewSizes = parameters.getSupportedPreviewSizes();
+			// 这里屏幕的宽度 高度需要反着来 
 			Size mysize = getOptimalPreviewSize(mSupportedPreviewSizes, 
-					SplashActivity.iScreenWidth, SplashActivity.iScreenHeight);
+					SplashActivity.iScreenHeight, SplashActivity.iScreenWidth);
 	        parameters.setPreviewSize(mysize.width, mysize.height);
 	        mCamera.setParameters(parameters);
 			
@@ -385,14 +375,22 @@ public class CameraView2 extends SurfaceView implements Callback {
         double targetRatio = (double) w / h;
         if (sizes == null) return null;
 
+    //    Log.i(LOG_TAG_RATIO, "screen width: " + w + "  screen height: " + h);
+        
+        
         Size optimalSize = null;
         double minDiff = Double.MAX_VALUE;
 
         int targetHeight = h;
 
         // Try to find an size match aspect ratio and size
-        for (Size size : sizes) {
+        for (Size size : sizes) {        	
             double ratio = (double) size.width / size.height;
+            
+        //	Log.i(LOG_TAG_RATIO, "width: " + size.width +
+        //			"  height: " + size.height + 
+        //			"  ratio: " + ratio);
+            
             if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE) continue;
             if (Math.abs(size.height - targetHeight) < minDiff) {
                 optimalSize = size;
