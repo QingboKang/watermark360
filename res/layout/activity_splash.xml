@@ -41,6 +41,24 @@
                     android:layout_height="wrap_content"/>
          </TableRow>
        </TableLayout>
+       
+        <TextView android:id="@+id/text_version"
+           android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content"
+    		android:gravity="center_horizontal" 
+    		android:textColorLink="@drawable/color_black"
+    		android:layout_alignParentBottom="true"
+    		android:layout_marginBottom="80dp"  />
+        
+       <TextView android:id="@+id/yf_website" 
+    		android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content" 
+    		android:autoLink="web" 
+    		android:text="@string/link_yufeicc"
+    		android:gravity="center_horizontal" 
+    		android:textColorLink="@drawable/color_white"
+    		android:layout_alignParentBottom="true"
+    		android:layout_marginBottom="20dp" />
 
 
 </RelativeLayout>

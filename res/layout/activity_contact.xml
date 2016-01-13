@@ -9,5 +9,14 @@
         android:layout_width="fill_parent" 
         android:layout_height="fill_parent"
         android:background="@drawable/contact" />
+    
+           <TextView android:id="@+id/yf_website" 
+    		android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content" 
+    		android:autoLink="web" 
+    		android:text="@string/link_yufeicc"
+    		android:textColorLink="@drawable/color_black"
+    		android:layout_marginLeft="80dp"
+    		android:layout_marginTop="227dp" />
 
 </RelativeLayout>

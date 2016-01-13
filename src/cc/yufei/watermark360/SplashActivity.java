@@ -3,13 +3,19 @@ package cc.yufei.watermark360;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.TextureView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SplashActivity extends Activity {
@@ -23,7 +29,9 @@ public class SplashActivity extends Activity {
 	// 电源管理
 	PowerManager.WakeLock mWakeLock;
 	
-	private static String LOG_TAG = "SplashActivity";
+	private TextView tvVersion;
+	
+//	private static String LOG_TAG = "SplashActivity";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +51,28 @@ public class SplashActivity extends Activity {
         
         mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "WM_360");
         mWakeLock.acquire();
+        
+        tvVersion = (TextView)findViewById(R.id.text_version);
+        tvVersion.setText("版本: " + getAppVersionName(SplashActivity.this));
+        tvVersion.setTextColor(Color.BLACK);
 	}
+	
+	//获取当前版本号 
+	private String getAppVersionName(Context context) { 
+		String versionName = ""; 
+		try { 
+				PackageManager packageManager = context.getPackageManager(); 
+				PackageInfo packageInfo = packageManager.getPackageInfo("cc.yufei.watermark360", 0); 
+				versionName = packageInfo.versionName; 
+				if (TextUtils.isEmpty(versionName)) { 
+					return ""; 
+				} 
+		} catch (Exception e) { 
+			e.printStackTrace(); 
+		//	return "versionName is empty"; 
+		} 
+		return versionName; 
+	} 
 	
 	public void onDestroy()
 	{
@@ -51,11 +80,11 @@ public class SplashActivity extends Activity {
 		
 		if( mWakeLock == null )
 		{
-			Log.i(LOG_TAG, "mWakeLock is null");
+		//	Log.i(LOG_TAG, "mWakeLock is null");
 		}
 		if( mWakeLock != null )
 		{
-			Log.i(LOG_TAG, "mWakeLock is not null");
+		//	Log.i(LOG_TAG, "mWakeLock is not null");
 			mWakeLock.release();
 		}
 	}

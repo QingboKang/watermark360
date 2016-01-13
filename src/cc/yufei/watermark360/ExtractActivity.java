@@ -23,7 +23,7 @@ public class ExtractActivity extends Activity {
 	private CameraView2 mCameraView;
 	public static SVDraw svDraw = null;
 	
-	private String LOG_TAG = "ExtractActivity";
+//	private String LOG_TAG = "ExtractActivity";
 	
 	// screen width/height
 	public static int iScreenWidth;
@@ -99,11 +99,11 @@ public class ExtractActivity extends Activity {
 		
 		if( mWakeLock == null )
 		{
-			Log.i(LOG_TAG, "mWakeLock is null");
+		//	Log.i(LOG_TAG, "mWakeLock is null");
 		}
 		if( mWakeLock != null )
 		{
-			Log.i(LOG_TAG, "mWakeLock is not null");
+		//	Log.i(LOG_TAG, "mWakeLock is not null");
 			mWakeLock.release();
 		}
 	}

@@ -250,7 +250,7 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermarkmultifilter_LibWatermarkFilter_Scr
 
 	//imwrite( imageFilePath, matTemplate);
 
-	LOGD("write template over");
+	//LOGD("write template over");
 
 
 	env->ReleaseIntArrayElements(templateData, pInTemplateData, 0);
@@ -272,7 +272,7 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermarkmultifilter_LibWatermarkFilter_Scr
 		jstring strOriginalFrame, jstring strFirstLocation, jstring strSecondLocation,
 		jstring strWatermarkRegion, jstring strFinalExtracion )
 {
-	LOGD("w: %d   h: %d", width, height);
+//	LOGD("w: %d   h: %d", width, height);
 
 	time_t t1, t2;
 
@@ -324,7 +324,7 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_PlainWMFilt
 	jint* pInData = env->GetIntArrayElements(inData, 0);
 
 	Mat matBGRA(height, width, CV_8UC4, (uchar*)pInData);
-	LOGD("After Mat %d  %d", height, width);
+//	LOGD("After Mat %d  %d", height, width);
 
     // roi rectangle
     Rect roiRect(1./5 * width, 1./5 * height, width * 3./5, height * 3./5 );

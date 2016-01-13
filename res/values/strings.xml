@@ -10,5 +10,7 @@
     <string name="title_activity_video">VideoActivity</string>
     <string name="title_activity_extract">ExtractActivity</string>
     <string name="title_activity_result">ResultActivity</string>
+    <string name="title_activity_web_link">WebLinkActivity</string>
+    <string name="link_yufeicc">www.yufei.cc</string>
 
 </resources>

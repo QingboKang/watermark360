@@ -23,7 +23,7 @@ public class VideoActivity extends Activity {
 	// result imageView
 	private ImageView imageView;
 	
-	private String LOG_TAG = "VideoActivity";
+//	private String LOG_TAG = "VideoActivity";
 	
 	// screen width/height
 	public static int iScreenWidth;

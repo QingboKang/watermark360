@@ -455,7 +455,7 @@ int ScrambledWMFilter( Mat &matBGRA, int height, int width,
     // if return 0, means location success
     int iret = FirstLocation(matBGRA, strFirstLocation);
 
-    LOGD("iret: %d\n", iret);
+   // LOGD("iret: %d\n", iret);
 
     // get the roi part of the image
     Mat roiMat;
@@ -464,7 +464,7 @@ int ScrambledWMFilter( Mat &matBGRA, int height, int width,
     // first location success
     if(iret == 0)
     {
-        LOGD("first locatio success. \t%d\n", iFirstLocSuccess);
+     //   LOGD("first locatio success. \t%d\n", iFirstLocSuccess);
         iFirstLocSuccess ++;
 
         // second location and extract watermark image
@@ -472,12 +472,12 @@ int ScrambledWMFilter( Mat &matBGRA, int height, int width,
             strWatermarkRegion, strFinalExtracion );
         if(iSecondRet == 0)
         {
-            LOGD("\nSecond location success.\n");
+         //   LOGD("\nSecond location success.\n");
             return 0;
         }
         else
         {
-            LOGD("\nSecond location failed.\n");
+         //   LOGD("\nSecond location failed.\n");
             return -1;
         }
     }
