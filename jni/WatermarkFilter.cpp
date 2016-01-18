@@ -395,7 +395,7 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtra
     Mat matBGRA(height, width, CV_8UC4, (uchar *)_bgra);
 
     //
-   // imwrite( pchOriginalFrame, matBGRA );
+    imwrite( pchOriginalFrame, matBGRA );
 
 	int iret = ScrambledWMFilter( matBGRA, height, width,
 			pchOriginalFrame, pchFirstLocation, pchSecondLocation,
