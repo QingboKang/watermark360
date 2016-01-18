@@ -44,8 +44,8 @@ public class ExtractActivity extends Activity {
 			if (msg.what == 1033) {
 				Bitmap bitmap = (Bitmap)msg.obj;
 				
-				matrix.setRotate(90);
-				bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+			//	matrix.setRotate(90);
+			//	bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 				
 				mFinalExtractBitmap = bitmap;
 				

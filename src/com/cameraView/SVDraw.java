@@ -98,7 +98,7 @@ public class SVDraw extends SurfaceView  implements SurfaceHolder.Callback{
 			int cheight = canvas.getHeight();
 			
 			
-		//Log.i(LOG_TAG, "cwidth: " + cwidth + "  cheight: " + cheight);
+		Log.i(LOG_TAG, "cwidth: " + cwidth + "  cheight: " + cheight);
 			
 			
 			canvas.drawColor(Color.TRANSPARENT);// 这里是绘制背景
@@ -106,8 +106,8 @@ public class SVDraw extends SurfaceView  implements SurfaceHolder.Callback{
 			p.setAntiAlias(true); // 反锯齿
 			p.setColor(Color.RED);
 			p.setStyle(Style.STROKE);
-			canvas.drawBitmap(bmp, null, new RectF(0, Math.abs( (cheight - cwidth)/2 ), cwidth, 
-					cheight - Math.abs( (cheight - cwidth)/2 )), p);
+			canvas.drawBitmap(bmp, null, new RectF( Math.abs( (cwidth - cheight)/2 ), 0,
+					cwidth - Math.abs( (cheight - cwidth)/2 ), cheight ), p);
 
 			// 提交绘制
 			sh.unlockCanvasAndPost(canvas);

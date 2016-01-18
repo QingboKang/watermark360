@@ -269,7 +269,7 @@ public class CameraView extends SurfaceView implements Callback {
 		mCamera.setParameters(parameters);// 设置相机参数 */
 
 
-		mCamera.setDisplayOrientation( 90 );
+	//	mCamera.setDisplayOrientation( 90 );
 		
 		mCamera.startPreview();
 		mCamera.autoFocus(autoFocus); 
@@ -306,7 +306,7 @@ public class CameraView extends SurfaceView implements Callback {
 		
 			// 这里屏幕的宽度 高度需要反着来 
 			Size mysize = getOptimalPreviewSize(mSupportedPreviewSizes, 
-					SplashActivity.iScreenHeight, SplashActivity.iScreenWidth);
+					SplashActivity.iScreenWidth, SplashActivity.iScreenHeight);
 			
 	        parameters.setPreviewSize(mysize.width, mysize.height);
 	        mCamera.setParameters(parameters);

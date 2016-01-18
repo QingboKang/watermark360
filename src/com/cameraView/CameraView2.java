@@ -268,7 +268,7 @@ public class CameraView2 extends SurfaceView implements Callback {
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
 		
-		Log.i(LOG_TAG, "onDraw");
+		//Log.i(LOG_TAG, "onDraw");
 		
 		super.onDraw(canvas);
 		
@@ -303,7 +303,7 @@ public class CameraView2 extends SurfaceView implements Callback {
 		mCamera.setParameters(parameters);// 设置相机参数 */
 
 
-		mCamera.setDisplayOrientation( 90 );
+	//	mCamera.setDisplayOrientation( 90 );
 		
 		mCamera.startPreview();
 		mCamera.autoFocus(autoFocus); 
@@ -340,7 +340,7 @@ public class CameraView2 extends SurfaceView implements Callback {
 			List<Size> mSupportedPreviewSizes = parameters.getSupportedPreviewSizes();
 			// 这里屏幕的宽度 高度需要反着来 
 			Size mysize = getOptimalPreviewSize(mSupportedPreviewSizes, 
-					SplashActivity.iScreenHeight, SplashActivity.iScreenWidth);
+					SplashActivity.iScreenWidth, SplashActivity.iScreenHeight);
 	        parameters.setPreviewSize(mysize.width, mysize.height);
 	        mCamera.setParameters(parameters);
 			
