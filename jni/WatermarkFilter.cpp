@@ -372,6 +372,19 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtra
 		jstring strOriginalFrame, jstring strFirstLocation, jstring strSecondLocation,
 		jstring strWatermarkRegion, jstring strFinalExtracion );
 
+/*
+ * function: extract type 2 watermark
+ * param: width - image width
+ * param: height - image height
+ * param: yuv - in image data(in yuv420 format)
+ * param: bgra - out image data(in rgba8888 format)
+ * param: strOriginalFrame,
+ *        strSecondLocation,
+ *        strSecondLocation,
+ *        strFinalExtracion
+ * 	      - strings, saving image use, for test.
+ *
+ */
 JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtract(
 		JNIEnv* env, jobject obj, jint width, jint height, jbyteArray yuv, jintArray bgra,
 		jstring strOriginalFrame, jstring strFirstLocation, jstring strSecondLocation,
@@ -395,7 +408,7 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtra
     Mat matBGRA(height, width, CV_8UC4, (uchar *)_bgra);
 
     //
-    imwrite( pchOriginalFrame, matBGRA );
+   // imwrite( pchOriginalFrame, matBGRA );
 
 	int iret = ScrambledWMFilter( matBGRA, height, width,
 			pchOriginalFrame, pchFirstLocation, pchSecondLocation,

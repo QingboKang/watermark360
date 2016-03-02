@@ -355,7 +355,8 @@ int LocAndExtract( Mat & srcImage, char* strSecondLocation, char* strWatermarkRe
     int iTemplateSmallRadius = iTemplateBigRadius * 0.76;
 
     // mean radius
-    int iMeanRadius = int((float)(iTemplateBigRadius + iTemplateSmallRadius)/2 + 0.5);
+    // change at 2016.03.02 version 1.2
+    int iMeanRadius = int(iTemplateBigRadius * 0.9 + iTemplateSmallRadius * 0.1);
 
     // do hough circles
     vector<Vec3f> circles;

@@ -333,14 +333,24 @@ public class CameraView2 extends SurfaceView implements Callback {
 			mCamera = Camera.open(cameraId);// 开启相机,不能放在构造函数中，不然不会显示画面.
 			
 			//
-	    	 DisplayMetrics metric = new DisplayMetrics();
+	    	DisplayMetrics metric = new DisplayMetrics();
 
 			// 设置参数
 			Camera.Parameters parameters = mCamera.getParameters();
 			List<Size> mSupportedPreviewSizes = parameters.getSupportedPreviewSizes();
-			// 这里屏幕的宽度 高度需要反着来 
+			// 
+			if( SplashActivity.iScreenWidth < SplashActivity.iScreenHeight )
+			{
+				int temp = SplashActivity.iScreenWidth;
+				SplashActivity.iScreenWidth = SplashActivity.iScreenHeight;
+				SplashActivity.iScreenHeight = temp;
+			}
+			
 			Size mysize = getOptimalPreviewSize(mSupportedPreviewSizes, 
 					SplashActivity.iScreenWidth, SplashActivity.iScreenHeight);
+			
+			Log.i(LOG_TAG_RATIO, "mysize.width: " + mysize.width + "  mysize.height: " + mysize.height );
+			
 	        parameters.setPreviewSize(mysize.width, mysize.height);
 	        mCamera.setParameters(parameters);
 			
@@ -375,7 +385,7 @@ public class CameraView2 extends SurfaceView implements Callback {
         double targetRatio = (double) w / h;
         if (sizes == null) return null;
 
-    //    Log.i(LOG_TAG_RATIO, "screen width: " + w + "  screen height: " + h);
+        Log.i(LOG_TAG_RATIO, "screen width: " + w + "  screen height: " + h);
         
         
         Size optimalSize = null;
@@ -387,9 +397,9 @@ public class CameraView2 extends SurfaceView implements Callback {
         for (Size size : sizes) {        	
             double ratio = (double) size.width / size.height;
             
-        //	Log.i(LOG_TAG_RATIO, "width: " + size.width +
-        //			"  height: " + size.height + 
-        //			"  ratio: " + ratio);
+        	Log.i(LOG_TAG_RATIO, "width: " + size.width +
+        			"  height: " + size.height + 
+        			"  ratio: " + ratio);
             
             if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE) continue;
             if (Math.abs(size.height - targetHeight) < minDiff) {

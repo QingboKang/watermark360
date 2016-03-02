@@ -63,9 +63,7 @@ public class VideoActivity extends Activity {
         iScreenWidth = display.getWidth();    
         iScreenHeight = display.getHeight();    
 		
-	//	Log.i(LOG_TAG, "before setContentView");
 		setContentView(R.layout.activity_video);
-	//	Log.i(LOG_TAG, "after setContentView");
 		
 		mCameraView = (CameraView) findViewById(R.id.mSurfaceView);
 		mCameraView.setHandle(mHandler);
@@ -80,17 +78,13 @@ public class VideoActivity extends Activity {
 	}
 
 
-
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
 
-
-
 	}
-	
-	
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) 
@@ -101,6 +95,4 @@ public class VideoActivity extends Activity {
         }
         return super.onKeyDown(keyCode, event);
     }
-	
-
 }
