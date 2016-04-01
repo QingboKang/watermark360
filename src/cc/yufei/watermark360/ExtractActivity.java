@@ -42,12 +42,6 @@ public class ExtractActivity extends Activity {
 	private Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			if (msg.what == 1033) {
-				Bitmap bitmap = (Bitmap)msg.obj;
-				
-			//	matrix.setRotate(90);
-			//	bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-				
-				mFinalExtractBitmap = bitmap;
 				
 				activity.setResult(1);
 				Log.i( "extract_result", "setResult");

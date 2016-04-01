@@ -22,7 +22,7 @@ LOCAL_LDLIBS    := -llog
 ##LOCAL_STATIC_LIBRARIES := libyuv_static
  
 LOCAL_SRC_FILES := WatermarkFilter.cpp \
- ScrambledMarkFilter.cpp 
+ ScrambledMarkFilterRect.cpp 
  
 LOCAL_MODULE_TAGS := optional
  

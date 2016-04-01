@@ -22,7 +22,7 @@ public class LibWatermarkFilter {
 			String strDataFilePath );
 	
 	public static native int SecondExtract( int width, int height, byte[] yuv, int[] rgba, 
-			String strOriginalFrame, String strFirstLocation, String strSecondLocation,
+			String strOriginalFrame, String strFirstLocation,
 			String strWatermarkRegion, String strFinalExtracion  );
 
 }

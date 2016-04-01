@@ -4,7 +4,7 @@
 #include <time.h>
 // #include "include/libyuv.h"
 
-#include "ScrambledMarkFilter.h"
+#include "ScrambledMarkFilterRect.h"
 
 extern "C" {
 
@@ -369,7 +369,7 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_PlainWMFilt
 
 JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtract(
 		JNIEnv* env, jobject obj, jint width, jint height, jbyteArray yuv, jintArray bgra,
-		jstring strOriginalFrame, jstring strFirstLocation, jstring strSecondLocation,
+		jstring strOriginalFrame, jstring strFirstLocation,
 		jstring strWatermarkRegion, jstring strFinalExtracion );
 
 /*
@@ -387,13 +387,12 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtra
  */
 JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtract(
 		JNIEnv* env, jobject obj, jint width, jint height, jbyteArray yuv, jintArray bgra,
-		jstring strOriginalFrame, jstring strFirstLocation, jstring strSecondLocation,
+		jstring strOriginalFrame, jstring strFirstLocation,
 		jstring strWatermarkRegion, jstring strFinalExtracion )
 {
 	// convert jstring into char*
 	char * pchOriginalFrame = jstringTostring(env, strOriginalFrame);
 	char * pchFirstLocation = jstringTostring(env, strFirstLocation);
-	char * pchSecondLocation = jstringTostring(env, strSecondLocation);
 	char * pchWatermarkRegion = jstringTostring(env, strWatermarkRegion);
 	char * pchFinalExtracion = jstringTostring(env, strFinalExtracion);
 
@@ -410,8 +409,8 @@ JNIEXPORT jint JNICALL Java_cc_yufei_watermark360_LibWatermarkFilter_SecondExtra
     //
    // imwrite( pchOriginalFrame, matBGRA );
 
-	int iret = ScrambledWMFilter( matBGRA, height, width,
-			pchOriginalFrame, pchFirstLocation, pchSecondLocation,
+	int iret = ScrambledWMFilterRect( matBGRA, height, width,
+			pchOriginalFrame, pchFirstLocation,
 			pchWatermarkRegion, pchFinalExtracion );
 
 

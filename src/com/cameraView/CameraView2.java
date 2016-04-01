@@ -14,6 +14,7 @@ import cc.yufei.watermark360.VideoActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -128,8 +129,6 @@ public class CameraView2 extends SurfaceView implements Callback {
 	        			+ "_1_original_frame.png";
 	        	String strFirstLocation = strCaptureFilePath + count_frame
 	        			+ "_2_first_location.png";
-	        	String strSecondLocation = strCaptureFilePath + count_frame
-	        			+ "_3_second_location.png";
 				String strWatermarkRegion = strCaptureFilePath + count_frame
 	        			+ "_4_watermark_region.png"; 
 				String strFinalExtracion = strCaptureFilePath + count_frame
@@ -137,7 +136,7 @@ public class CameraView2 extends SurfaceView implements Callback {
 	        			
 				int iret = LibWatermarkFilter.SecondExtract(imageWidth, imageHeight, data, RGBData,
 						strOriginalFrame, strFirstLocation, 
-						strSecondLocation, strWatermarkRegion, strFinalExtracion);
+					    strWatermarkRegion, strFinalExtracion);
 			
                 end1 = System.currentTimeMillis();
                 Log.i( LOG_TAG, count_frame + " iret: " + iret + " time: " + (end1 - start) + " ms"); 
@@ -152,10 +151,12 @@ public class CameraView2 extends SurfaceView implements Callback {
                 if( iret == 0 )
                 {
                 	Bitmap bm = Bitmap.createBitmap(RGBData, imageWidth, imageHeight, Config.ARGB_8888);
+                //	bm.compress(CompressFormat.JPEG, 50, stream);
+                	
+                	ExtractActivity.mFinalExtractBitmap = bm;
                 	
                 	Message message = new Message();
                 	message.what = 1033;
-                	message.obj = bm;
                 	mHandler.sendMessage(message);  
                 	Log.i( "extract_result", "send message");
                 

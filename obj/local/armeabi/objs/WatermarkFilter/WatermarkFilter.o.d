@@ -30,7 +30,7 @@ obj/local/armeabi/objs/WatermarkFilter/WatermarkFilter.o: \
  /cygdrive/d/android-ndk-r10d/platforms/android-21/arch-arm/usr/include/time.h \
  /cygdrive/d/android-ndk-r10d/platforms/android-21/arch-arm/usr/include/sys/time.h \
  /cygdrive/d/android-ndk-r10d/platforms/android-21/arch-arm/usr/include/linux/time.h \
- jni/ScrambledMarkFilter.h \
+ jni/ScrambledMarkFilterRect.h \
  ../../OpenCV-2.3.1/share/OpenCV/../../include/opencv2/opencv.hpp \
  ../../OpenCV-2.3.1/share/OpenCV/../../include/opencv2/core/core_c.h \
  ../../OpenCV-2.3.1/share/OpenCV/../../include/opencv2/core/types_c.h \
@@ -133,7 +133,7 @@ obj/local/armeabi/objs/WatermarkFilter/WatermarkFilter.o: \
 
 /cygdrive/d/android-ndk-r10d/platforms/android-21/arch-arm/usr/include/linux/time.h:
 
-jni/ScrambledMarkFilter.h:
+jni/ScrambledMarkFilterRect.h:
 
 ../../OpenCV-2.3.1/share/OpenCV/../../include/opencv2/opencv.hpp:
 
